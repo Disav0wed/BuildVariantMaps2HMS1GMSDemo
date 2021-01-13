@@ -1,0 +1,123 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'com.huawei.agconnect'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    signingConfigs {
+        debug {
+            storeFile file('demo.jks')
+            keyAlias 'buildvariantmaps'
+            keyPassword '123456'
+            storePassword '123456'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+        release{
+            storeFile file('demo.jks')
+            keyAlias 'buildvariantmapsrelease'
+            keyPassword '123456'
+            storePassword '123456'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.ibrahimrecepserpici.buildvariantmapsdemo"
+        minSdkVersion 23
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+            debuggable true
+        }
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+            debuggable true
+        }
+    }
+
+    flavorDimensions "provider", "api"
+    productFlavors
+            {
+                huawei
+                        {
+                            dimension "provider"
+                            versionNameSuffix "HMS"
+                        }
+
+                huawei2
+                        {
+
+                            applicationId "com.ibrahimrecepserpici.buildvariantmapsdemo.hms2"
+                            dimension "provider"
+                            versionNameSuffix "HMS2"
+
+                        }
+
+
+                google
+                        {
+                            dimension "provider"
+                            versionNameSuffix "GMS"
+                        }
+
+                api24
+                        {
+                            dimension "api"
+
+                        }
+                api27
+                        {
+                            dimension "api"
+                        }
+            }
+
+
+    variantFilter
+            { variant ->
+                def names = variant.flavors*.name
+
+                if (names.contains("api27") && names.contains("huawei"))
+                {
+                    setIgnore(true)
+                }
+            }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    //Huawei Dependencies
+    huaweiImplementation 'com.huawei.agconnect:agconnect-core:1.2.1.300'
+    huaweiImplementation 'com.huawei.hms:maps:4.0.1.301'
+
+    //Huawei2 Dependencies
+    huawei2Implementation 'com.huawei.agconnect:agconnect-core:1.2.1.300'
+    huawei2Implementation 'com.huawei.hms:maps:4.0.1.301'
+
+    //Google Dependencies
+    googleImplementation 'com.google.android.gms:play-services-maps:17.0.0'
+}

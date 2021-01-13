@@ -1,0 +1,14 @@
+{
+	"client":{
+		"appType":"1",
+		"cp_id":"890090000023106056",
+		"product_id":"736430079244780104",
+		"client_id":"539082741036090432",
+		"client_secret":"C41237214D46963AA37825E5C5949B3CBF2BD04A67BE770FD43AD52DF2489524",
+		"project_id":"736430079244780104",
+		"app_id":"103674721",
+		"api_key":"CgB6e3x9rqrOjuDLrUfIn6DFMPmi4TYtOq/1VbmGrCh4cjAfSw8GT6IuibmpCTcZl9BOtv0o1DHhmkwz07V4caGG",
+		"package_name":"com.ibrahimrecepserpici.buildvariantmapsdemo.hms2"
+	},
+	"configuration_version":"1.0"
+}
